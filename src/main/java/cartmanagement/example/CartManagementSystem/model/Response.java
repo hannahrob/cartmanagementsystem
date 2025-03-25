@@ -1,61 +1,38 @@
 package cartmanagement.example.CartManagementSystem.model;
 
 public class Response {
-    private Long cartItemId;
-    private Long productId;
-    private String productName;
-    private int quantity;
-    private double price;
+   private String status;
+   private String message;
+   private Object data;
 
-    public Response() {
+    public Response(String status, String message, Object data) {
+        this.status = status;
+        this.message = message;
+        this.data = data;
     }
 
-    public Response(Long cartItemId, Long productId, String productName, int quantity, double price) {
-        this.cartItemId = cartItemId;
-        this.productId = productId;
-        this.productName = productName;
-        this.quantity = quantity;
-        this.price = price;
+    public String getStatus() {
+        return status;
     }
 
-    public Long getCartItemId() {
-        return cartItemId;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
-    public void setCartItemId(Long cartItemId) {
-        this.cartItemId = cartItemId;
+    public String getMessage() {
+        return message;
     }
 
-    public Long getProductId() {
-        return productId;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
-    public void setProductId(Long productId) {
-        this.productId = productId;
+    public Object getData() {
+        return data;
     }
 
-    public String getProductName() {
-        return productName;
-    }
-
-    public void setProductName(String productName) {
-        this.productName = productName;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
+    public void setData(Object data) {
+        this.data = data;
     }
 }
 

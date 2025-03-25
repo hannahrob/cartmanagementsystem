@@ -2,7 +2,10 @@ package cartmanagement.example.CartManagementSystem.controller;
 
 import cartmanagement.example.CartManagementSystem.model.Cart;
 import cartmanagement.example.CartManagementSystem.model.CartItemRequest;
+import cartmanagement.example.CartManagementSystem.model.Response;
 import cartmanagement.example.CartManagementSystem.service.CartManagementService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,13 +33,16 @@ public class cartManagementController {
         return "Item added to cart successfully";
     }
 
+
     @GetMapping("{itemId}")
     public CartItemRequest getCartItem(@PathVariable("itemId") Long itemId){
         return cartManagementService.getItem(itemId);
     }
     @GetMapping()
-    public List<CartItemRequest> getAllCartItem(){
-        return cartManagementService.getAllItems();
+    public Response getAllCartItem(){
+        List<CartItemRequest> listResponse =  cartManagementService.getAllItems();
+        Response finalResponse = new Response("00", "Successful", listResponse);
+        return finalResponse;
     }
     @PutMapping
     public String updateCartItem(@RequestBody CartItemRequest cartItemRequest){
