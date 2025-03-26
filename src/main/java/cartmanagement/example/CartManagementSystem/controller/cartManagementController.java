@@ -1,6 +1,7 @@
 package cartmanagement.example.CartManagementSystem.controller;
 import cartmanagement.example.CartManagementSystem.model.Cart;
 import cartmanagement.example.CartManagementSystem.model.CartItemRequest;
+import cartmanagement.example.CartManagementSystem.model.ItemToCartDto;
 import cartmanagement.example.CartManagementSystem.model.Response;
 import cartmanagement.example.CartManagementSystem.service.CartManagementService;
 import org.springframework.web.bind.annotation.*;
@@ -28,6 +29,13 @@ public class cartManagementController {
     public List<Cart> getCarts(){
         return cartManagementService.getAllCarts();
     }
+
+    @PutMapping("/add-item-to-cart")
+    public String updateCart(@RequestBody ItemToCartDto itemToCartDto){
+        cartManagementService.updateCart(itemToCartDto);
+        return "Cart Updated successfully";
+    }
+
 
     @GetMapping("{itemId}")
     public CartItemRequest getCartItem(@PathVariable("itemId") Long itemId){

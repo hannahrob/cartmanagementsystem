@@ -10,7 +10,7 @@ public class Cart {
     @SequenceGenerator(name = "cart_sequence", sequenceName = "cart_sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cart_sequence")
     private Long cartId;
-    private String ownerName;
+    private String userEmail;
     private ArrayList<CartItemRequest> cartItemRequests;
 
     public Cart(Long cartId, String ownerName, ArrayList<CartItemRequest> cartItemRequests) {

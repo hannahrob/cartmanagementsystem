@@ -1,11 +1,13 @@
 package cartmanagement.example.CartManagementSystem.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "cart_items")
 public class CartItemRequest {
     @Id
+    @JsonIgnore
     @SequenceGenerator(name = "cartItem_sequence", sequenceName = "cartItem_sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cartItem_sequence")
     private Long itemId;

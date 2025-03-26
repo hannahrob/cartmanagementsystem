@@ -2,11 +2,13 @@ package cartmanagement.example.CartManagementSystem.service;
 
 import cartmanagement.example.CartManagementSystem.model.Cart;
 import cartmanagement.example.CartManagementSystem.model.CartItemRequest;
+import cartmanagement.example.CartManagementSystem.model.ItemToCartDto;
 
 import java.util.List;
 
 public interface CartManagementService {
     public String createACart(Cart cart);
+    public String updateCart(ItemToCartDto cart);
     public String addItem(CartItemRequest cartItemRequest);
     public String updateItem(CartItemRequest cartItemRequest);
     public String deleteItem(Long itemId);
