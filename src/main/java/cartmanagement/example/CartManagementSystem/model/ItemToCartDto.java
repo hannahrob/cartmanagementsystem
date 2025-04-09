@@ -2,12 +2,13 @@ package cartmanagement.example.CartManagementSystem.model;
 
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ItemToCartDto {
     String userEmail;
-    ArrayList<CartItemRequest> cartItems;
+    List<CartItem> cartItems;
 
-    public ItemToCartDto(String userEmail, ArrayList<CartItemRequest> cartItems) {
+    public ItemToCartDto(String userEmail, ArrayList<CartItem> cartItems) {
         this.userEmail = userEmail;
         this.cartItems = cartItems;
     }
@@ -20,11 +21,11 @@ public class ItemToCartDto {
         this.userEmail = userEmail;
     }
 
-    public ArrayList<CartItemRequest> getCartItems() {
+    public List<CartItem> getCartItems() {
         return cartItems;
     }
 
-    public void setCartItems(ArrayList<CartItemRequest> cartItems) {
+    public void setCartItems(ArrayList<CartItem> cartItems) {
         this.cartItems = cartItems;
     }
 }

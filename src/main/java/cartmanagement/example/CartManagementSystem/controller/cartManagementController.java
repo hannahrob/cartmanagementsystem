@@ -1,6 +1,6 @@
 package cartmanagement.example.CartManagementSystem.controller;
 import cartmanagement.example.CartManagementSystem.model.Cart;
-import cartmanagement.example.CartManagementSystem.model.CartItemRequest;
+import cartmanagement.example.CartManagementSystem.model.CartItem;
 import cartmanagement.example.CartManagementSystem.model.ItemToCartDto;
 import cartmanagement.example.CartManagementSystem.model.Response;
 import cartmanagement.example.CartManagementSystem.service.CartManagementService;
@@ -32,43 +32,42 @@ public class cartManagementController {
 
     @PutMapping("/add-item-to-cart")
     public String updateCart(@RequestBody ItemToCartDto itemToCartDto){
-        cartManagementService.updateCart(itemToCartDto);
-        return "Cart Updated successfully";
+        return cartManagementService.addItemToCart(itemToCartDto);
     }
 
 
-    @GetMapping("{itemId}")
-    public CartItemRequest getCartItem(@PathVariable("itemId") Long itemId){
-        return cartManagementService.getItem(itemId);
-    }
+//    @GetMapping("{itemId}")
+//    public CartItem getCartItem(@PathVariable("itemId") Long itemId){
+//        return cartManagementService.getItem(itemId);
+//    }
 
 
-    @GetMapping()
-    public Response getAllCartItem(){
-        List<CartItemRequest> listResponse =  cartManagementService.getAllItems();
-        Response finalResponse = new Response("00", "Successful", listResponse);
-        return finalResponse;
-    }
+//    @GetMapping()
+//    public Response getAllCartItem(){
+//        List<CartItem> listResponse =  cartManagementService.getAllItems();
+//        Response finalResponse = new Response("00", "Successful", listResponse);
+//        return finalResponse;
+//    }
 
-    @PostMapping
-    public Response addItemToCart(@RequestBody CartItemRequest cartItemRequest){
-        String cartResponse = cartManagementService.addItem(cartItemRequest);
-        return new Response(cartResponse, "Item added to cart successfully",cartItemRequest);
-    }
-
-
-    @PutMapping
-    public Response updateCartItem(@RequestBody CartItemRequest cartItemRequest){
-        String cartItemRequest1 = cartManagementService.updateItem(cartItemRequest);
-        return new Response(cartItemRequest1, "Item updated successfully",cartItemRequest);
-    }
+//    @PostMapping
+//    public Response addItemToCart(@RequestBody CartItem cartItem){
+//        String cartResponse = cartManagementService.addItem(cartItem);
+//        return new Response(cartResponse, "Item added to cart successfully", cartItem);
+//    }
 
 
-    @DeleteMapping("{itemId}")
-    public Response deleteCartItem(@PathVariable Long itemId){
-       String cartResponse =  cartManagementService.deleteItem(itemId);
-        return new Response(cartResponse, "Item deleted successfully", null);
-    }
+//    @PutMapping
+//    public Response updateCartItem(@RequestBody CartItem cartItem){
+//        String cartItemRequest1 = cartManagementService.updateItem(cartItem);
+//        return new Response(cartItemRequest1, "Item updated successfully", cartItem);
+//    }
+
+
+//    @DeleteMapping("{itemId}")
+//    public Response deleteCartItem(@PathVariable Long itemId){
+//       String cartResponse =  cartManagementService.deleteItem(itemId);
+//        return new Response(cartResponse, "Item deleted successfully", null);
+//    }
 
 
     @DeleteMapping("/api/cart/checkout-item")

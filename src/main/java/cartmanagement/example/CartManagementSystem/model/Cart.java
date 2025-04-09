@@ -11,12 +11,12 @@ public class Cart {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cart_sequence")
     private Long cartId;
     private String userEmail;
-    private ArrayList<CartItemRequest> cartItemRequests;
+    private ArrayList<CartItem> cartItems;
 
-    public Cart(Long cartId, String ownerName, ArrayList<CartItemRequest> cartItemRequests) {
+    public Cart(Long cartId, String userEmail, ArrayList<CartItem> cartItems) {
         this.cartId = cartId;
-        this.ownerName = ownerName;
-        this.cartItemRequests = cartItemRequests;
+        this.userEmail = userEmail;
+        this.cartItems = cartItems;
     }
     public Cart() {}
 
@@ -28,19 +28,19 @@ public class Cart {
         this.cartId = cartId;
     }
 
-    public String getOwnerName() {
-        return ownerName;
+    public String getUserEmail() {
+        return userEmail;
     }
 
-    public void setOwnerName(String ownerName) {
-        this.ownerName = ownerName;
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
     }
 
-    public ArrayList<CartItemRequest> getCartItemRequests() {
-        return cartItemRequests;
+    public ArrayList<CartItem> getCartItem() {
+        return cartItems;
     }
 
-    public void setCartItemRequests(ArrayList<CartItemRequest> cartItemRequests) {
-        this.cartItemRequests = cartItemRequests;
+    public void setCartItem(ArrayList<CartItem> cartItems) {
+        this.cartItems = cartItems;
     }
 }

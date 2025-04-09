@@ -1,9 +1,9 @@
 package cartmanagement.example.CartManagementSystem.service.impl;
 
 import cartmanagement.example.CartManagementSystem.model.Cart;
-import cartmanagement.example.CartManagementSystem.model.CartItemRequest;
+import cartmanagement.example.CartManagementSystem.model.CartItem;
 import cartmanagement.example.CartManagementSystem.model.ItemToCartDto;
-import cartmanagement.example.CartManagementSystem.repository.CartManagementRepository;
+//import cartmanagement.example.CartManagementSystem.repository.CartManagementRepository;
 import cartmanagement.example.CartManagementSystem.repository.CartRepository;
 import cartmanagement.example.CartManagementSystem.service.CartManagementService;
 import org.springframework.stereotype.Service;
@@ -14,11 +14,11 @@ import java.util.List;
 @Service
 public class CartManagementImpl implements CartManagementService {
 
-    CartManagementRepository cartManagementRepository;
+//    CartManagementRepository cartManagementRepository;
+//    Cart cart = new Cart();
     CartRepository cartRepository;
 
-    public CartManagementImpl(CartManagementRepository cartManagementRepository, CartRepository cartRepository) {
-        this.cartManagementRepository = cartManagementRepository;
+    public CartManagementImpl( CartRepository cartRepository) {
         this.cartRepository = cartRepository;
     }
 
@@ -29,17 +29,21 @@ public class CartManagementImpl implements CartManagementService {
     }
 
     @Override
-    public String updateCart(ItemToCartDto itemToCartDto) {
+    public String addItemToCart(ItemToCartDto itemToCartDto) {
         // todo: get the particular cart from the DB
         Cart cart = cartRepository.findByEmail(itemToCartDto.getUserEmail());
 
         // todo: fetch the existing items
-        ArrayList<CartItemRequest> existingItems = cart.getCartItemRequests();
+        ArrayList<CartItem> existingItems;
+
+        if (cart.getCartItem() != null) {
+            existingItems =cart.getCartItem();
+        } else {
+            existingItems = new ArrayList<>();
+        }
 
         // todo: add the new items to the existing items
-        for (CartItemRequest item: itemToCartDto.getCartItems()) {
-            existingItems.add(item);
-        }
+        existingItems.addAll(itemToCartDto.getCartItems());
 
         //todo: save the cart again
         cartRepository.save(cart);
@@ -48,39 +52,39 @@ public class CartManagementImpl implements CartManagementService {
         return "Cart Updated Successfully";
     }
 
-    @Override
-    public String addItem(CartItemRequest cartItemRequest) {
-        cartManagementRepository.save(cartItemRequest);
-        return "Success";
-    }
+//    @Override
+//    public String addItem(Cart cart) {
+//        cartRepository.save(cart);
+//        return "Success";
+//    }
 
-    @Override
-    public String updateItem(CartItemRequest cartItemRequest) {
-        cartManagementRepository.save(cartItemRequest);
-        return "Success";
-    }
+//    @Override
+//    public String updateItem(CartItem cartItem) {
+//        cartManagementRepository.save(cartItem);
+//        return "Success";
+//    }
 
-    @Override
-    public String deleteItem(Long itemId) {
-        cartManagementRepository.deleteById(itemId);
-        return "Success";
-    }
+//    @Override
+//    public String deleteItem(Long itemId) {
+//        cartManagementRepository.deleteById(itemId);
+//        return "Success";
+//    }
 
     @Override
     public String checkoutCart() {
-        cartManagementRepository.deleteAll();
+        cartRepository.deleteAll();
         return "Success";
     }
 
-    @Override
-    public CartItemRequest getItem(Long itemId) {
-        return cartManagementRepository.findById(itemId).get();
-    }
+//    @Override
+//    public CartItem getItem(Long itemId) {
+//        return cartManagementRepository.findById(itemId).get();
+//    }
 
-    @Override
-    public List<CartItemRequest> getAllItems() {
-        return cartManagementRepository.findAll();
-    }
+//    @Override
+//    public List<CartItem> getAllItems() {
+//        return cartManagementRepository.findAll();
+//    }
 
     @Override
     public List<Cart> getAllCarts() {
