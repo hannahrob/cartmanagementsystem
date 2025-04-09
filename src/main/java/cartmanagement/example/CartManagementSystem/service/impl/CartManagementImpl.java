@@ -3,7 +3,6 @@ package cartmanagement.example.CartManagementSystem.service.impl;
 import cartmanagement.example.CartManagementSystem.model.Cart;
 import cartmanagement.example.CartManagementSystem.model.CartItem;
 import cartmanagement.example.CartManagementSystem.model.ItemToCartDto;
-//import cartmanagement.example.CartManagementSystem.repository.CartManagementRepository;
 import cartmanagement.example.CartManagementSystem.repository.CartRepository;
 import cartmanagement.example.CartManagementSystem.service.CartManagementService;
 import org.springframework.stereotype.Service;
@@ -13,9 +12,6 @@ import java.util.List;
 
 @Service
 public class CartManagementImpl implements CartManagementService {
-
-//    CartManagementRepository cartManagementRepository;
-//    Cart cart = new Cart();
     CartRepository cartRepository;
 
     public CartManagementImpl( CartRepository cartRepository) {
@@ -30,61 +26,44 @@ public class CartManagementImpl implements CartManagementService {
 
     @Override
     public String addItemToCart(ItemToCartDto itemToCartDto) {
+        System.out.println("Incoming request: " +  itemToCartDto.toString());
         // todo: get the particular cart from the DB
         Cart cart = cartRepository.findByEmail(itemToCartDto.getUserEmail());
+        System.out.println("cart object from DB: " + cart );
 
         // todo: fetch the existing items
         ArrayList<CartItem> existingItems;
 
-        if (cart.getCartItem() != null) {
-            existingItems =cart.getCartItem();
+        if (cart.getCartItems() != null) {
+            System.out.println("cart from db is not null");
+            existingItems =cart.getCartItems();
         } else {
+            System.out.println("cart from db is null");
             existingItems = new ArrayList<>();
         }
 
         // todo: add the new items to the existing items
-        existingItems.addAll(itemToCartDto.getCartItems());
+        for (CartItem item : itemToCartDto.getCartItems()) {
+            System.out.println("adding item to list => " + item.toString());
+            existingItems.add(item);
+        }
+
+        cart.setCartItems(existingItems);
 
         //todo: save the cart again
+        System.out.println("saving cart back to the db: " + cart.toString());
         cartRepository.save(cart);
+        System.out.println("Cart Updated Successfully");
 
         // todo: return a response to the client
         return "Cart Updated Successfully";
     }
-
-//    @Override
-//    public String addItem(Cart cart) {
-//        cartRepository.save(cart);
-//        return "Success";
-//    }
-
-//    @Override
-//    public String updateItem(CartItem cartItem) {
-//        cartManagementRepository.save(cartItem);
-//        return "Success";
-//    }
-
-//    @Override
-//    public String deleteItem(Long itemId) {
-//        cartManagementRepository.deleteById(itemId);
-//        return "Success";
-//    }
 
     @Override
     public String checkoutCart() {
         cartRepository.deleteAll();
         return "Success";
     }
-
-//    @Override
-//    public CartItem getItem(Long itemId) {
-//        return cartManagementRepository.findById(itemId).get();
-//    }
-
-//    @Override
-//    public List<CartItem> getAllItems() {
-//        return cartManagementRepository.findAll();
-//    }
 
     @Override
     public List<Cart> getAllCarts() {
